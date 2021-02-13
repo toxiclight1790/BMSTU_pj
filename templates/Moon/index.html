@@ -1,0 +1,14 @@
+{% if latest_recept_list %}
+    <ul>
+    {% for recept in latest_recept_list %}
+        <li>
+            <a href="/{{ recept.id }}/">
+                {{ recept.name }}
+                <img src="/media/{{ recept.img }}">
+            </a>
+        </li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No gluten are available.</p>
+{% endif %}

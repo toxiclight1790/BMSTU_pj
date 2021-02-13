@@ -1,0 +1,5 @@
+<h1>{{ recept.name }} -- {{recept.types}} </h1>
+{% for comp in recept.text_set.all %}
+    <li>{{ comp.recept_text }}</li>
+{% endfor %}
+</ul>
