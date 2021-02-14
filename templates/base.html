@@ -1,0 +1,55 @@
+{% load static %}
+<html>
+  <head>
+    <title>
+        {% block title %}
+        {% endblock %}
+    </title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+  </head>
+
+  <body class="div">
+
+    <nav id="menu1">
+        <ul>
+            <li><a href="{% url 'index' %}">Главная</a></li>
+            
+            <li><a>Мои работы</a>
+                <ul>
+                        <li v-for="todo in message">
+                            <a :href="'/'+todo.id">
+                                {[todo.title]}
+                            </a>
+                        </li>
+                </ul>
+            </li>
+            <li><a href="/contacts.html">Контакты📱</a>
+    </nav>
+      <!-- <h1>TEST Base</h1> -->
+    <div id="block">
+        {% block content %}
+        {% endblock %}
+    </div>
+    <script>
+        var app = new Vue({
+            delimiters: ["{[", "]}"],
+            el: '#menu1',
+            data() {
+                return {
+                    message: null
+                };
+            },
+            created() {
+                axios
+                .get('http://localhost:8000/menu/')
+                .then(response => (this.message = response.data.data));
+            },
+            mounted(){
+            }
+        })
+      </script>
+   </body>
+</html>
