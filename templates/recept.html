@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}
+<!-- Главная -->
+{% endblock %}
+
+
+{% block content %}
+<center>
+    <div class="text">{{ recepts.0.types }}</div>
+</center>
+<div class="text">
+    <center>  
+        {% for recept in recept %}
+            <a href="/{{ recept.id }}/">
+                <img src="/media/{{ recept.img }}" class="amg">
+                {{ recept.name }}
+            </a><br>
+        {% endfor %}
+</center>  
+</div>
+{% endblock %}

@@ -26,10 +26,18 @@ def Menu(request):
 def detail(request, categor_id):
     try:
         recepts = Recept.objects.filter(types=categor_id)
-        print(recepts)
+        # print(recepts[0].types)
     except Recept.DoesNotExist:
         raise Http404("Question does not exist")
     return render(request, 'recepts.html', {'recepts': recepts})
+
+def CurRec(request, recept_id):
+    try:
+        recept = Recept.objects.get(id=recept_id)
+        # print(recepts[0].types)
+    except Recept.DoesNotExist:
+        raise Http404("Recept does not exist")
+    return render(request, 'recept.html', {'recept': recept})
 
 
 

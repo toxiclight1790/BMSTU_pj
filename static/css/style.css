@@ -3,7 +3,8 @@
     font-family: cursive;
   }
   .div {
-    /* Местоположение фоновой картинки */   background-image: url(https://img1.goodfon.ru/original/1920x1200/a/37/galaktika-svet-sineva-zvezdy.jpg);      
+    /* Местоположение фоновой картинки */   
+    background-image: url(../Background_image.jpg);      
     /* Фоновое изображение выровнено по центру в горизонтальной и вертикальной плоскостях */   background-position: center center;      
     /* Фон не повторяется */   background-repeat: no-repeat;      
     /* Фон зафиксирован в области просмотра и потому не двигается, когда высота контента превышает высоту изображения */   background-attachment: fixed;      
@@ -32,16 +33,17 @@
     height: 100px;
   }
   .amg{
-    max-width: 35%;
-    max-height: 35%;
-    /* border: 10px solid #333; */
+    max-width: 55%;
     alt: inherit;
-    box-shadow: 0 0 50px gold;
+    box-shadow: 0 0 45px rgba(238, 228, 176, 0.54);
     margin: 0 auto;
     margin-bottom: 15px; /* Отступы */
     margin-top: 40px;
     display: block; /* Блочный элемент */
-    border-radius: 60px 60px 60px 60px;
+    border-radius: 28px;
+    width: 52%; 
+    height: 40%; 
+    object-fit: cover;
   }
   .glut{
     width: 50vw;
@@ -59,8 +61,9 @@
   }
   .text {
     color:white;
-    margin-left:50px;
     font-size:175%;
+    width: 75%;
+    margin: 0 auto;
   }
   .text_1{
     color:white;
@@ -89,7 +92,7 @@ margin-top:100px ;
     padding: 20px; /* Поля вокруг текста */
     line-height: 1.5;
     background: rgba(48, 162, 255, 0.685);
-    border-radius: 50px 50px 50px 50px;
+    border-radius: 50px;
   }
   .sdek_1 {
     border: 10px solid rgba(39, 255, 1, 0.637);
@@ -99,7 +102,7 @@ margin-top:100px ;
     padding: 20px; /* Поля вокруг текста */
     line-height: 1.5;
     background: rgba(48, 162, 255, 0.685);
-    border-radius: 50px 50px 50px 50px;
+    border-radius: 50px;
   }
   #conteiner{
     /* width:10000px; */
@@ -111,26 +114,53 @@ margin-top:100px ;
 #menu1{
     position:relative;
     display:block;
-    width:100%;
+    width:96%;
     height:auto;
     z-index:10;
-    position: fixed;  
+    position: fixed;
+    background:rgba(0, 73, 16, 0.89);
+    margin: 0 auto;
+    margin-left: 2%;
+    margin-right: 2%;
+    border-radius: 7px;
 }
 #block{
   padding-top: 4em;
+}
+div#block div.text a{
+  color: white;
+  text-decoration: none;
+}
+div#block div.text div#rec{
+  background-color: rgba(55, 55, 55, 0.75);
+  border-radius: 22px;
+  margin-top: 30px;
+  width: 53%;
+  border: 1px solid green;
+}
+div#block div.text div#rec div#rec_content{
+  padding-top: 10px;
+  border-radius: 7px;
+  margin: 0 auto;;
+}
+div#block div.text a p#description{
+  color: rgb(197, 186, 125);
+  font-weight: 900;
+  margin: 0;
+  font-size: 85%;
+  text-shadow: silver;
 }
     #menu1 ul{
         position:relative;
         display:block;
         margin:0px;
         padding:10px;
-        width:99%;
         height:auto;
         list-style:none;
-        background:rgb(0, 0, 0);
         text-shadow: red 0 0 10px; /* Свечение красного цвета */
         opacity: .9;
         box-shadow:0 0 20px rgb(255, 255, 255);
+        border-radius: 7px;
     }
     #menu1 > ul{
         text-align:justify;

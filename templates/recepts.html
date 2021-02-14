@@ -6,15 +6,20 @@
 
 {% block content %}
 <center>
-    <div class="text">Торты🎂
+    <div class="text">{{ recepts.0.types }}</div>
 </center>
 <div class="text">
     <center>  
         {% for recept in recepts %}
-            <a href="/{{ recept.id }}/">
-                <img src="/media/{{ recept.img }}" class="amg">
-                {{ recept.name }}
-            </a><br>
+            <div id="rec">
+                <div id="rec_content">
+                    <a href="/recept/{{ recept.id }}/">
+                        <img src="/media/{{ recept.img }}" class="amg">
+                        {{ recept.name }}
+                        <p id="description">{{ recept.description }}</p>
+                    </a><br>
+                </div>
+            </div>
         {% endfor %}
 </center>  
 </div>
