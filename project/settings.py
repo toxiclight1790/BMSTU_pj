@@ -25,7 +25,7 @@ SECRET_KEY = 'iete9=a#(8un_z7=%$(t#_hk#-qfd8-x9c39)@x3x%(13-$1pn'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition

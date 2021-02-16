@@ -42,12 +42,12 @@
                     message: null
                 };
             },
-            created() {
+            mounted() {
                 axios
                 .get('http://localhost:8000/menu/')
                 .then(response => (this.message = response.data.data));
             },
-            mounted(){
+            created(){
             }
         })
       </script>
