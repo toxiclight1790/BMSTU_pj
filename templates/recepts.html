@@ -12,13 +12,14 @@
     <center>  
         {% for recept in recepts %}
             <div id="rec">
-                <div id="rec_content">
-                    <a href="/recept/{{ recept.id }}/">
-                        <img src="/media/{{ recept.img }}" class="amg">
-                        {{ recept.name }}
-                        <p id="description">{{ recept.description }}</p>
-                    </a><br>
-                </div>
+                <a href="/recept/{{ recept.id }}/">
+                    <div id="rec_content">
+                            <img src="/media/{{ recept.img }}" class="amg">
+                            {{ recept.name }}
+                            <p id="description">{{ recept.description }}</p>
+                        <br>
+                    </div>
+                </a>
             </div>
         {% endfor %}
 </center>  

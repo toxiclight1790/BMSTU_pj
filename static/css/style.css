@@ -1,7 +1,19 @@
-  .title{
-    color: blueviolet;
-    font-family: cursive;
-  }
+img#logo{
+  min-width:57px;
+  width:57%;
+  -webkit-filter: drop-shadow(1px 1px 3px white );
+  filter: drop-shadow(1px 1px 3px white);
+  position:absolute;
+  top: -8px;
+  left: 20px;
+}
+.title{
+  color: blueviolet;
+  font-family: cursive;
+}
+#rec_form{
+  color: black;
+}
   .div {
     /* Местоположение фоновой картинки */   
     background-image: url(../Background_image.jpg);      
@@ -11,18 +23,18 @@
     /* Это свойство заставляет фон менять масштаб при изменении размеров содержащего его контейнера*/   background-size: cover;      
     /* Цвет фона, который будет отображаться при загрузке фоновой картинки*/   background-color: #000000; 
     /*Цвет текста на странице*/   color: #fff; 
-    cursor: url('rainbow normal select (static).cur'), auto;
+    /* cursor: url('rainbow normal select (static).cur'), auto; */
   }
 
   .body1{
     color: blue;
     font-family: 'Lobster', cursive;
-    cursor: url('rainbow link select (static).cur'), auto;
+    /* cursor: url('rainbow link select (static).cur'), auto; */
   }
   .body2{
     font-family: 'Russo One', sans-serif;
     color: blue;
-    cursor: url('rainbow link select (static).cur'), auto;
+    /* cursor: url('rainbow link select (static).cur'), auto; */
   }
   .text-block{
     margin-left:20px;
@@ -124,6 +136,7 @@ margin-top:100px ;
     margin-left: 2%;
     margin-right: 2%;
     border-radius: 7px;
+    margin-top: 0.6%;
 }
 #block{
   padding-top: 4em;
@@ -201,12 +214,12 @@ div#block div.text a p#description{
                 text-transform:uppercase;
                 height:36px;
                 box-sizing:border-box;
-                
+                position: relative;
             }
             #menu1 ul li > a:hover, #menu1 ul li:hover > a{
                 text-shadow: #5dc8e5 0 0 10px; /* Свечение голубого цвета */
                 color: #00eeff;
-                cursor: url('rainbow link select (static).cur'), auto;
+                /* cursor: url('rainbow link select (static).cur'), auto; */
 
             }
             #menu1 ul li ul{

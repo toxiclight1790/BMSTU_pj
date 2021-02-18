@@ -1,11 +1,13 @@
 from django.http import HttpResponse, Http404, JsonResponse
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.template import loader
 from django.urls import reverse
 from django.views.generic import ListView, DetailView
 import json
+import requests
 from django.core import serializers
-
+from django.views import View
+from .forms import *
 
 
 from .models import Recept, Text, Categor
@@ -33,17 +35,39 @@ def detail(request, categor_id):
 
 def CurRec(request, recept_id):
     try:
-        recept = Recept.objects.get(id=recept_id)
-        # print(recepts[0].types)
+        data =[]
+        data.append(list(Recept.objects.filter(id=recept_id).values()))
+        # print(recept.name)
+        data.append(list(Text.objects.filter(recept=recept_id).values()))
+        
+        # recept.append(text)
     except Recept.DoesNotExist:
         raise Http404("Recept does not exist")
-    return render(request, 'recept.html', {'recept': recept})
+    return render(request, 'recept.html', {'recept': data})
 
 
+class NewRecView(View):    
+    def post(self, request):
+        print('HERE')
+        data=request.POST
+        files = request.FILES.getlist('file')
 
-# def results(request, recept_id):
-#     response = "You're looking at the results of question %s."
-#     return HttpResponse(response % recept_id)
+        if request.method == 'POST':
+            Name = data['name']
+            Types = Categor.objects.get(id=data['types'])
+            Description = data['description']
+            recept = Recept()
+            recept.name = Name
+            recept.types = Types
+            recept.description = Description
+            recept.img = files[0]
+            recept.save()
+            return HttpResponse(status=201)
 
-# def vote(request, recept_id):
-#     return HttpResponse("You're voting on question %s." % recept_id)
+
+# name = models.CharField(default='',max_length=200)
+# types = models.ForeignKey(Categor,default=0,on_delete=models.CASCADE)
+# description = models.CharField(default='',max_length=200)
+# pub_date = models.DateTimeField(default=now,blank=True)
+# likes = models.IntegerField(default=0)
+# img = models.ImageField(upload_to ='uploads/', default='none.png')

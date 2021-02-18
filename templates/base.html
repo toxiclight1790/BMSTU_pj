@@ -1,23 +1,33 @@
 {% load static %}
-<html>
+<!doctype html>
+<html lang="ru">
   <head>
     <title>
         {% block title %}
         {% endblock %}
     </title>
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
   </head>
 
   <body class="div">
-
+<div id="page">
     <nav id="menu1">
         <ul>
-            <li><a href="{% url 'index' %}">Главная</a></li>
+            <li>
+                <a href="{% url 'index' %}" style="padding:0;">
+                    <img src="{% static 'logo.png' %}" id="logo">
+                </a>
+            </li>
             
-            <li><a>Мои работы</a>
+            <li style="left: 6%;"><a>Мои работы</a>
                 <ul>
                         <li v-for="todo in message">
                             <a :href="'/categor/'+todo.id">
@@ -27,27 +37,104 @@
                 </ul>
             </li>
             <li><a href="/contacts.html">Контакты📱</a>
+
     </nav>
       <!-- <h1>TEST Base</h1> -->
     <div id="block">
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#rec_form">
+  Open modal
+</button>
         {% block content %}
         {% endblock %}
+            <!-- The Modal -->
+            <div class="modal" id="rec_form">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Добавление рецепта</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                          <label for="name" class="form-label">Название рецепта</label>
+                          <input type="text" class="form-control" id="name" v-model="recept.name">
+                        </div>
+                        <div class="mb-3">
+                            <select v-model="recept.types">
+                                <option disabled value="" style="color: red;">Выберите один из вариантов</option>
+                                <option :value="i.id" v-for="i in message">{[i.title]}</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                          <label for="desc" class="form-label">Описание рецепта</label>
+                          <input type="text" class="form-control" id="desc" v-model="recept.description">
+                        </div>
+                        <div class="mb-3">
+                            <label for="file" class="form-label">Изображение</label>
+                            <input class="form-control form-control-sm"  type="file" id="file" ref="file" v-on:change="handleFileUpload()">
+                        </div>
+                        <!-- <button type="игеещт" class="btn btn-primary">Submit</button> -->
+                      </form>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" @click="submit()">Submit</button>
+                </div>
+
+                </div>
+            </div>
+            </div>
+</div>
     </div>
+</div>
     <script>
         var app = new Vue({
             delimiters: ["{[", "]}"],
-            el: '#menu1',
+            el: '#page',
             data() {
                 return {
-                    message: null
+                    message: null,
+                    recept: [],
+                    url:'http://localhost:8000/',
+                    file:''
                 };
             },
             mounted() {
                 axios
-                .get('http://localhost:8000/menu/')
+                .get(this.url+'menu/')
                 .then(response => (this.message = response.data.data));
             },
             created(){
+            },
+            methods:{
+                handleFileUpload(){
+                    this.file = this.$refs.file.files[0];
+                },
+                submit: function() {
+                    let NewReceptData = new FormData();
+                    NewReceptData.append('name', this.recept.name);
+                    NewReceptData.append('types', this.recept.types);
+                    NewReceptData.append('description', this.recept.description);
+                    NewReceptData.append('file', this.file);
+
+                    console.log(NewReceptData);
+                    axios.post(this.url+'addrecept/', NewReceptData)
+				.then(
+					function(response) {
+						var id = response.data.data;
+					},
+					function(error) {
+						console.log(error);
+						this.loading = false;
+					}
+				);
+                }
             }
         })
       </script>
