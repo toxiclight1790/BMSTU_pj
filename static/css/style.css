@@ -11,8 +11,128 @@ img#logo{
   color: blueviolet;
   font-family: cursive;
 }
+#block .btn-recept{
+  position: fixed;
+  right: 2%;
+  top: 5em;
+  color: #fff;
+  border-color: #004910;
+  background-color: rgba(0, 73, 16, 0.89);
+  box-shadow: 0 0 5px rgb(255, 255, 255);
+}
 #rec_form{
   color: black;
+}
+#recept{
+    background-color: rgba(55, 55, 55, 0.75);
+    border: 2px solid green;
+    box-shadow: 0 0 38px rgba(0, 128, 0, 0.59);
+    width: 70%;
+    margin: 0 auto;
+    margin-top: 3%;
+    border-radius: 9px;
+}
+#recept #recept_block{
+  width: 80%;
+  margin: 0 auto;
+  padding: 10px;
+  padding-top: 5%;
+}
+#block #rec_form form #title:focus{
+    color: #495057;
+    background-color: #fff;
+    box-shadow: 0 0 5px .2rem rgba(100,200,100,.8);
+}
+#block #rec_form form div#add_form_table{
+    width: 100%;
+}
+#block #rec_form form div#add_form_table .inp{
+    width: 32.9%;
+    display: inline-block;
+    padding: .75rem 2.5rem .75rem 1rem;/* отступы от текста до рамки */
+    margin: 0;
+    border: 1px solid #ccc; /* рамка */
+    border-radius: 3px;/* скругление полей формы */
+    font-family: inherit;/* наследует от родителя */
+    font-size: 1rem;
+    color: #444;
+}
+#block #rec_form form div.add_name input.style_add:focus, #block #rec_form form div.add_name .select.inp:focus{
+    color: #495057;
+    background-color: #fff;
+    box-shadow: 0 0 5px .2rem rgba(100,200,100,.8);
+}
+#block #rec_form form div.add_name input.style_add{
+    text-transform: uppercase;
+    width: 69%;
+    padding: 0;
+    padding: .75rem 2.5rem .75rem 1rem;/* отступы от текста до рамки */
+    display: inline-block;
+    border: 1px solid #ccc;
+}
+#block #rec_form form div.add_name .select.inp{
+    width: 30%;
+    position: relative;
+    padding: 0;
+    border-radius: 3px;/* скругление полей формы */
+    display: inline-block;
+    border: 1px solid #ccc;
+}
+#block #rec_form form div.add_name .select.inp select {
+    display: block;
+    width: 100%; /* от ширины блока div */
+    padding: .75rem 2.5rem .75rem 1rem;/* отступы от текста до рамки */
+    background: none; /* убираем фон */
+    border: 0px; /* рамка */
+    border-radius: 3px;/* скругление полей формы */
+    -webkit-appearance: none;/* Chrome */
+    -moz-appearance: none;/* Firefox */
+    appearance: none;/* убираем дефолнтные стрелочки */
+    font-family: inherit;/* наследует от родителя */
+    font-size: 1rem;
+    color: #444;
+}
+#block #rec_form form div#add_form_table .select.inp{
+    position: relative;
+}
+#block #rec_form form div#add_form_table .select.inp select {
+    display: block;
+    width: 100%; /* от ширины блока div */
+    padding: .75rem 2.5rem .75rem 1rem;/* отступы от текста до рамки */
+    background: none; /* убираем фон */
+    border: 0px; /* рамка */
+    border-radius: 3px;/* скругление полей формы */
+    -webkit-appearance: none;/* Chrome */
+    -moz-appearance: none;/* Firefox */
+    appearance: none;/* убираем дефолнтные стрелочки */
+    font-family: inherit;/* наследует от родителя */
+    font-size: 1rem;
+    color: #444;
+}
+#block #rec_form form  .style_add{
+    border: 0px;
+    outline: none;
+}
+#block #rec_form form  .style_add:focus{
+    outline: 0;
+    box-shadow: 0 0 5px .2rem rgba(0,255,0,3);
+}
+
+#recept #recept_block form button{
+    margin-top: 22px;
+    margin-right: auto;
+    width: 18%;
+}
+#recept .recept_content{
+  color: #ffffff;
+}
+#recept #recept_block .comments_list{
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphenate-limit-chars: 6 3 2;
+  overflow: scroll;
+  max-width: 100%;
 }
   .div {
     /* Местоположение фоновой картинки */   
@@ -140,6 +260,7 @@ margin-top:100px ;
 }
 #block{
   padding-top: 4em;
+  position: relative;
 }
 div#block div.text a{
   color: white;
@@ -317,5 +438,4 @@ div#block div.text a p#description{
 .wrapper img:nth-child(2) { animation-delay: 2s;  }
 .wrapper img:nth-child(3) { animation-delay: 4s;  }
 .wrapper img:nth-child(4) { animation-delay: 6s;  }
-
 

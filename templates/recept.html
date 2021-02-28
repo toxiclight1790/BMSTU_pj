@@ -1,23 +1,58 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block title %}
 <!-- Главная -->
 {% endblock %}
 
 
 {% block content %}
-<center>
-    <div class="text">{{ recept.0 }}</div>
-    {% for item in recept.1 %}
-        <div class="text">
-            <p>{{ item.recept_text }}</p>
-            {% if item.img %}
-                <p><img src="/media/{{ item.img }}" class="amg"></p>
-            {% endif %}
+<div id="recept">
+    <div id="recept_block">
+        <div class="recept_content">
+            <!-- <p>{{ recept.0.0 }}</p> -->
+            <p>Название: {{ recept.0.0.name }}</p>
+            <p>Описание: {{ recept.0.0.description }}</p>
+            <p>Дата публикации: {{ recept.0.0.pub_date }}</p>
+            <p>Лайки: {{ recept.0.0.likes }}</p>
+            <svg><use xlink:href="{% static 'like-svgrepo-com.svg' %}"></use></svg>
+
+
+            <p><img src="" ></p>
+        </div>
+        {% for item in recept.1 %}
+            <div class="">
+                <p>{{ item.recept_text }}</p>
+                {% if item.img %}
+                    <p><img src="{{ MEDIA_URL }}/media/{{ item.img }}" class="amg"></p>
+                {% endif %}
             </div> 
         {% endfor %}
-</center>
-<div class="text">
-    <center>  
-</center>  
+        <form action="{% url 'add_com' recept.0.0.id %}" method="post" enctype="multipart/form-data">
+            <div class="mb-3">
+                <div class="form-floating">
+                    <textarea  name="text" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+                    <label style="color: #444;" for="floatingTextarea2">Ваш комментарий</label>
+                </div>
+                <br>
+                <!-- <div class="input-group mb-3">
+                    <label class="input-group-text" for="inputGroupFile01">Изображение к комментарию</label>
+                    <input name="file" type="file" class="form-control" id="inputGroupFile01">
+                </div> -->
+                <button type="submit" class="btn btn-outline-primary">Добавить</button>
+            </div>
+        </form>
+        {% for item in recept.2 %}
+            <div class="">
+                <p class="comments_list">{{ item.comment_text }}</p>
+                {% if item.img %}
+                    <p><img src="{{ MEDIA_URL }}/media/{{ item.img }}" class="amg"></p>
+                {% endif %}
+            </div> 
+        {% endfor %}
+    </div>
 </div>
+<!-- <div class="text">
+    <center>
+    </center>  
+</div> -->
 {% endblock %}

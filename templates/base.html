@@ -8,12 +8,12 @@
     </title>
     <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
-            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
-            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script>
 
   </head>
 
@@ -29,7 +29,7 @@
             
             <li style="left: 6%;"><a>Мои работы</a>
                 <ul>
-                        <li v-for="todo in message">
+                        <li v-for="todo in menu">
                             <a :href="'/categor/'+todo.id">
                                 {[todo.title]}
                             </a>
@@ -41,16 +41,15 @@
     </nav>
       <!-- <h1>TEST Base</h1> -->
     <div id="block">
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#rec_form">
-  Open modal
+<button type="button" class="btn btn-primary btn-recept" data-bs-toggle="modal" data-bs-target="#rec_form">
+  Новый рецепт
 </button>
         {% block content %}
         {% endblock %}
             <!-- The Modal -->
             <div class="modal" id="rec_form">
-            <div class="modal-dialog">
-                <div class="modal-content">
-
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content"> 
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <h4 class="modal-title">Добавление рецепта</h4>
@@ -60,31 +59,83 @@
                 <!-- Modal body -->
                 <div class="modal-body">
                     <form>
-                        <div class="mb-3">
-                          <label for="name" class="form-label">Название рецепта</label>
-                          <input type="text" class="form-control" id="name" v-model="recept.name">
+                        <!-- <div v-for="dat in recept"> -->
+                            <div>
+                            <div class="mb-3 add_name">
+                            <input type="text" class="form-control style_add" id="title" placeholder="Название рецепта" v-model="recept.name">
+                                <div class="select inp">
+                                    <select v-model="recept.types">
+                                        <option disabled value="" style="color: red;">КАТЕГОРИЯ БЛЮДА</option>
+                                        <option :value="i.id" v-for="i in menu">{[i.title]}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <div id="add_form_table">
+                                        <div style="margin-bottom: 3px;" v-for="j in recept.ingredients">
+                                            <div style="display: inline-block; width: 96%;">
+                                                <input placeholder="Введите ингредиент" type="text" v-model="j.name" class="inp">
+                                                <input placeholder="Введите количество" type="text" v-model="j.size" class="inp">
+                                                <div class="select inp" style="padding: 0;">
+                                                    <select v-model="j.measure">
+                                                        <option disabled value="">Мера</option>
+                                                        <option value="Грамм">Грамм</option>
+                                                        <option value="Зубчик">Зубчик</option>
+                                                        <option value="Килограмм">Килограмм</option>
+                                                        <option value="Миллилитр">Миллилитр</option>
+                                                        <option value="Столовая ложка">Столовая ложка</option>
+                                                        <option value="Стакан">Стакан</option>
+                                                        <option value="Штука">Штука</option>
+                                                        <option value="Чайная ложка">Чайная ложка</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div style="display: inline-block; width: 3%; position: relative;">
+                                                <button v-if="recept.ingredients.length > 0" style="position: absolute; top: -20px; right: -3px;" class="close" type="button">&times;</button>                                            
+                                            </div>
+                                        </div>
+                                        <div style="margin-bottom: 3px;">
+                                            <div style="display: inline-block; width: 96%;">
+                                                <input placeholder="Введите ингредиент" type="text" id="name" v-model="info[0].name" class="inp">
+                                                <input placeholder="Введите количество" type="text" id="size" v-model="info[0].size" class="inp">
+                                                <div class="select inp" style="padding: 0;">
+                                                    <select v-model="info[0].measure">
+                                                        <option disabled value="">Мера</option>
+                                                        <option value="Грамм">Грамм</option>
+                                                        <option value="Зубчик">Зубчик</option>
+                                                        <option value="Килограмм">Килограмм</option>
+                                                        <option value="Миллилитр">Миллилитр</option>
+                                                        <option value="Столовая ложка">Столовая ложка</option>
+                                                        <option value="Стакан">Стакан</option>
+                                                        <option value="Штука">Штука</option>
+                                                        <option value="Чайная ложка">Чайная ложка</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div style="display: inline-block; width: 3%; position: relative;">
+                                                <button v-if="recept.ingredients.length > 1" style="position: absolute; top: -20px; right: -3px;" class="close" type="button">&times;</button>                                            
+                                            </div>
+                                        </div>
+                                </div>
+                            </div>
+                            <h1 @click="comp()">Добавить элемент</h1>
+                            <div class="mb-3">
+                            <!-- <label for="desc" class="form-label">Описание рецепта</label> -->
+                            <input type="text" class="form-control style_add" id="desc" v-model="recept.description" placeholder="Описание рецепта">
+                            </div>
+                            <div class="mb-3">
+                                <label style="display: inline-block; width: 20%;" for="file" class="form-label">Изображение</label>
+                                <input style="display: inline-block; width: 79%;" class="form-control form-control-sm style_add"  type="file" id="file" ref="file" v-on:change="handleFileUpload()" accept="image/*">
+                            </div>
+                            <!-- <button type="игеещт" class="btn btn-primary">Submit</button> -->
                         </div>
-                        <div class="mb-3">
-                            <select v-model="recept.types">
-                                <option disabled value="" style="color: red;">Выберите один из вариантов</option>
-                                <option :value="i.id" v-for="i in message">{[i.title]}</option>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                          <label for="desc" class="form-label">Описание рецепта</label>
-                          <input type="text" class="form-control" id="desc" v-model="recept.description">
-                        </div>
-                        <div class="mb-3">
-                            <label for="file" class="form-label">Изображение</label>
-                            <input class="form-control form-control-sm"  type="file" id="file" ref="file" v-on:change="handleFileUpload()">
-                        </div>
-                        <!-- <button type="игеещт" class="btn btn-primary">Submit</button> -->
-                      </form>
+                    </form>
                 </div>
 
                 <!-- Modal footer -->
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal" @click="submit()">Submit</button>
+                    <button type="button" class="btn btn-primary" @click="submit()">Submit</button>
+                    <!-- <button type="button" class="btn btn-primary" @click="log()">LOG</button> -->
                 </div>
 
                 </div>
@@ -99,40 +150,150 @@
             el: '#page',
             data() {
                 return {
-                    message: null,
-                    recept: [],
+                    menu: null,
+                    recept:{
+                            name: '',
+                            types: '',
+                            description: '',
+                            img: '',
+                            ingredients:[]
+                        },
                     url:'http://localhost:8000/',
-                    file:''
+                    file:'',
+                    info:[{
+                        name:'',
+                        size:'',
+                        measure:''
+                    }],
+                    loading:false,
+                    // ingredient:0,
                 };
             },
             mounted() {
                 axios
                 .get(this.url+'menu/')
-                .then(response => (this.message = response.data.data));
+                .then(response => (this.menu = response.data.data));
+                let data = {};
+                // this.recept.ingredients = [];
+                // this.recept.name = '';
+                // this.recept.types = '';
+                // this.recept.description = '';
             },
-            created(){
+            watch: {
+                // 'recept.0.ingredients': {
+                //     handler(newVal, oldVal) {
+                //         // alert("УРА!");
+                //         if ((this.recept[this.recept.length - 1].ingredients != []) && (this.recept.length >1)){
+                //             this.recept[0].ingredients.push([
+                //                 {
+                //                     name:this.info.name,
+                //                     size:this.info.name,
+                //                     measure:this.info.name
+                //                 }
+                //             ]);
+                //             this.debouncedGetAnswer();
+                //         }else if ((this.recept[0].ingredients != []) && (this.recept.length == 1)){
+                //             this.recept[0].ingredients.push([
+                //                 {
+                //                     name:this.info.name,
+                //                     size:this.info.name,
+                //                     measure:this.info.name
+                //                 }
+                //             ]);
+                //             this.debouncedGetAnswer();
+                //         }else{
+                //             console.log("ELSE");
+                //         };
+                //     },
+                //     deep: true,
+                //     // alert("Хоть что-то!");
+                // },
+                // menu: function(val){
+                //     console.log(this.menu);
+                // },
+                // 'info': function(val) {
+                //     console.log('OLOLOmmmm');
+                //     // console.log(this.recept[this.recept.length - 1].ingredients);
+                //     this.debouncedGetAnswer();
+                // },
+            },
+            computed: {
             },
             methods:{
+                comp: function() {
+                    if ((this.info[0].name != '') && (this.info[0].size != '') && (this.info[0].measure != '')){
+                        this.recept.ingredients.push(
+                            {
+                                name:this.info[0].name,
+                                size:this.info[0].size,
+                                measure:this.info[0].measure
+                            }
+                        );
+                        this.info[0].name = '';
+                        this.info[0].size = '';
+                        this.info[0].measure = '';
+
+                        // this.debouncedGetAnswer();
+                    }
+                    // else if ((this.recept[0].ingredients != []) && (this.recept.length == 1)){
+                    //     this.recept[0].ingredients.push([
+                    //         {
+                    //             name:this.info.name,
+                    //             size:this.info.name,
+                    //             measure:this.info.name
+                    //         }
+                    //     ]);
+                    //     this.debouncedGetAnswer();
+                    // }else{
+                    //     console.log("ELSE");
+                    // };
+                },
+                // addcomp(){
+                //     alert("УРА!");
+
+                //     if (this.recept[this.recept.length - 1].ingredients != [] || this.recept[this.recept.length - 1].ingredients.length == 0){
+                //         this.recept[0].ingredients.push(
+                //             {
+                //                 name:this.info.name,
+                //                 size:this.info.size,
+                //                 measure:this.info.measure
+                //             }
+                //         );
+                //         this.info=[{
+                //                 name:'',
+                //                 size:'',
+                //                 measure:''
+                //             }];
+                //     };
+                // },
                 handleFileUpload(){
                     this.file = this.$refs.file.files[0];
                 },
+                log(){
+                    console.log(this.recept);
+                },
                 submit: function() {
+                    // if(!this.loading)
+                    // this.loading = true;
+                    
                     let NewReceptData = new FormData();
                     NewReceptData.append('name', this.recept.name);
                     NewReceptData.append('types', this.recept.types);
                     NewReceptData.append('description', this.recept.description);
+                    NewReceptData.append('text', JSON.stringify(this.recept.ingredients));
                     NewReceptData.append('file', this.file);
-
                     console.log(NewReceptData);
                     axios.post(this.url+'addrecept/', NewReceptData)
-				.then(
-					function(response) {
-						var id = response.data.data;
-					},
-					function(error) {
-						console.log(error);
-						this.loading = false;
-					}
+                    .then(
+                        function(response) {
+                            this.loading = false;
+                            this.recept=[];
+                            // location.reload();
+                        },
+                        function(error) {
+                            this.loading = false;
+                            console.log(error);
+                        }
 				);
                 }
             }
