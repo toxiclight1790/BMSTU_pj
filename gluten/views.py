@@ -93,6 +93,7 @@ def DelRec(request, recept_id):
     try:
         rec = Recept.objects.get(id=recept_id)
         rec.delete()
-        return HttpResponseRedirect("/")
+        return HttpResponseRedirect("/")   
     except Recept.DoesNotExist:
         raise Http404("Recept does not exist")
+ 

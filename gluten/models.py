@@ -18,8 +18,11 @@ class Recept(models.Model):
     img = models.ImageField(upload_to ='uploads/', default='none.png')
 
     def __str__(self):
+            return format(self.pub_date.strftime('%d.%m.%Y %H:%M'))
+            
+    def __str__(self):
         return self.name
-
+        
 class Text(models.Model):
     recept = models.ForeignKey(Recept, on_delete=models.CASCADE)
     recept_text = models.CharField(default='',max_length=200)

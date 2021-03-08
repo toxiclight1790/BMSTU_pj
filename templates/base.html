@@ -41,9 +41,9 @@
     </nav>
       <!-- <h1>TEST Base</h1> -->
     <div id="block">
-<button type="button" class="btn btn-primary btn-recept" data-bs-toggle="modal" data-bs-target="#rec_form">
-  Новый рецепт
-</button>
+        <button type="button" class="btn btn-primary btn-recept" data-bs-toggle="modal" data-bs-target="#rec_form">
+        Новый рецепт
+        </button>
         {% block content %}
         {% endblock %}
             <!-- The Modal -->
@@ -72,26 +72,26 @@
                             </div>
                             <div class="mb-3">
                                 <div id="add_form_table">
-                                        <div style="margin-bottom: 3px;" v-for="j in recept.ingredients">
+                                        <div style="margin-bottom: 3px;" v-for="(j, index) in recept.ingredients">
                                             <div style="display: inline-block; width: 96%;">
                                                 <input placeholder="Введите ингредиент" type="text" v-model="j.name" class="inp">
                                                 <input placeholder="Введите количество" type="text" v-model="j.size" class="inp">
                                                 <div class="select inp" style="padding: 0;">
                                                     <select v-model="j.measure">
                                                         <option disabled value="">Мера</option>
-                                                        <option value="Грамм">Грамм</option>
-                                                        <option value="Зубчик">Зубчик</option>
-                                                        <option value="Килограмм">Килограмм</option>
-                                                        <option value="Миллилитр">Миллилитр</option>
-                                                        <option value="Столовая ложка">Столовая ложка</option>
-                                                        <option value="Стакан">Стакан</option>
-                                                        <option value="Штука">Штука</option>
-                                                        <option value="Чайная ложка">Чайная ложка</option>
+                                                        <option value="Грамм">Грамм(-ов)</option>
+                                                        <option value="Зубчик">Зубчик(-ов)</option>
+                                                        <option value="Килограмм">Килограмм(-ов)</option>
+                                                        <option value="Миллилитр">Миллилитр(-ов)</option>
+                                                        <option value="Столовая ложка">Столовая ложка(-ек)</option>
+                                                        <option value="Стакан">Стакан(-ов)</option>
+                                                        <option value="Штука">Штук(-а)</option>
+                                                        <option value="Чайная ложка">Чайная ложка(-ек)</option>
                                                     </select>
                                                 </div>
                                             </div>
                                             <div style="display: inline-block; width: 3%; position: relative;">
-                                                <button v-if="recept.ingredients.length > 0" style="position: absolute; top: -20px; right: -3px;" class="close" type="button">&times;</button>                                            
+                                                <button @click="remove(index)" style="position: absolute; top: -20px; right: -3px;" class="close" type="button">&times;</button>                                            
                                             </div>
                                         </div>
                                         <div style="margin-bottom: 3px;">
@@ -101,24 +101,24 @@
                                                 <div class="select inp" style="padding: 0;">
                                                     <select v-model="info[0].measure">
                                                         <option disabled value="">Мера</option>
-                                                        <option value="Грамм">Грамм</option>
-                                                        <option value="Зубчик">Зубчик</option>
-                                                        <option value="Килограмм">Килограмм</option>
-                                                        <option value="Миллилитр">Миллилитр</option>
-                                                        <option value="Столовая ложка">Столовая ложка</option>
-                                                        <option value="Стакан">Стакан</option>
-                                                        <option value="Штука">Штука</option>
-                                                        <option value="Чайная ложка">Чайная ложка</option>
+                                                        <option value="Грамм">Грамм(-ов)</option>
+                                                        <option value="Зубчик">Зубчик(-ов)</option>
+                                                        <option value="Килограмм">Килограмм(-ов)</option>
+                                                        <option value="Миллилитр">Миллилитр(-ов)</option>
+                                                        <option value="Столовая ложка">Столовая ложка(-ек)</option>
+                                                        <option value="Стакан">Стакан(-ов)</option>
+                                                        <option value="Штука">Штук(-а)</option>
+                                                        <option value="Чайная ложка">Чайная ложка(-ек)</option>
                                                     </select>
                                                 </div>
                                             </div>
                                             <div style="display: inline-block; width: 3%; position: relative;">
-                                                <button v-if="recept.ingredients.length > 1" style="position: absolute; top: -20px; right: -3px;" class="close" type="button">&times;</button>                                            
+                                                <button :disabled="!add_comp_fields" @click="clear_comp()" style="position: absolute; top: -20px; right: -3px;" class="close" type="button">&times;</button>                                            
                                             </div>
                                         </div>
                                 </div>
                             </div>
-                            <h1 @click="comp()">Добавить элемент</h1>
+                            <button type="button" id="btn-add-elem" @click="comp()">Добавить элемент</button>
                             <div class="mb-3">
                             <!-- <label for="desc" class="form-label">Описание рецепта</label> -->
                             <input type="text" class="form-control style_add" id="desc" v-model="recept.description" placeholder="Описание рецепта">
@@ -127,7 +127,7 @@
                                 <label style="display: inline-block; width: 20%;" for="file" class="form-label">Изображение</label>
                                 <input style="display: inline-block; width: 79%;" class="form-control form-control-sm style_add"  type="file" id="file" ref="file" v-on:change="handleFileUpload()" accept="image/*">
                             </div>
-                            <!-- <button type="игеещт" class="btn btn-primary">Submit</button> -->
+                            <!-- <button type="button" class="btn btn-primary">Submit</button> -->
                         </div>
                     </form>
                 </div>
@@ -218,6 +218,14 @@
                 // },
             },
             computed: {
+                add_comp_fields:function () {
+                    if((this.info[0].name != '') || (this.info[0].size != '') || (this.info[0].measure != '')){
+                        return true
+                    }
+                    else{
+                        return false
+                    }
+                }
             },
             methods:{
                 comp: function() {
@@ -232,42 +240,18 @@
                         this.info[0].name = '';
                         this.info[0].size = '';
                         this.info[0].measure = '';
-
-                        // this.debouncedGetAnswer();
                     }
-                    // else if ((this.recept[0].ingredients != []) && (this.recept.length == 1)){
-                    //     this.recept[0].ingredients.push([
-                    //         {
-                    //             name:this.info.name,
-                    //             size:this.info.name,
-                    //             measure:this.info.name
-                    //         }
-                    //     ]);
-                    //     this.debouncedGetAnswer();
-                    // }else{
-                    //     console.log("ELSE");
-                    // };
                 },
-                // addcomp(){
-                //     alert("УРА!");
-
-                //     if (this.recept[this.recept.length - 1].ingredients != [] || this.recept[this.recept.length - 1].ingredients.length == 0){
-                //         this.recept[0].ingredients.push(
-                //             {
-                //                 name:this.info.name,
-                //                 size:this.info.size,
-                //                 measure:this.info.measure
-                //             }
-                //         );
-                //         this.info=[{
-                //                 name:'',
-                //                 size:'',
-                //                 measure:''
-                //             }];
-                //     };
-                // },
+                remove(index){
+                    this.recept.ingredients.splice(index, 1);
+                },
                 handleFileUpload(){
                     this.file = this.$refs.file.files[0];
+                },
+                clear_comp(){
+                    this.info[0].name = '';
+                    this.info[0].size = '';
+                    this.info[0].measure = '';
                 },
                 log(){
                     console.log(this.recept);

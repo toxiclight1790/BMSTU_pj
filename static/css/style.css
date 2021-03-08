@@ -20,6 +20,12 @@ img#logo{
   background-color: rgba(0, 73, 16, 0.89);
   box-shadow: 0 0 5px rgb(255, 255, 255);
 }
+#btn-add-elem{
+  width: 22%;
+  margin-left: 78%;
+  /* margin-bottom: 10px; */
+  margin-bottom: 1rem!important;
+}
 #rec_form{
   color: black;
 }
@@ -31,6 +37,16 @@ img#logo{
     margin: 0 auto;
     margin-top: 3%;
     border-radius: 9px;
+    position: relative;
+}
+#recept .del_recept{
+  position: absolute;
+  right: 1em;
+  top: 1em;
+  color: #fff;
+  border-color: #49491010;
+  background-color: rgba(96, 41, 53, 0.61);
+  box-shadow: 0 0 5px rgb(255, 255, 255);
 }
 #recept #recept_block{
   width: 80%;
@@ -112,10 +128,12 @@ img#logo{
 #block #rec_form form  .style_add{
     border: 0px;
     outline: none;
+    border:1px solid #ccc ;
 }
 #block #rec_form form  .style_add:focus{
     outline: 0;
-    box-shadow: 0 0 5px .2rem rgba(0,255,0,3);
+    box-shadow: 0 0 5px .2rem rgba(100,200,100,.8);
+    /* box-shadow: 0 0 5px .2rem red; */
 }
 
 #recept #recept_block form button{

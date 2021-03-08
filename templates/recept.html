@@ -7,15 +7,26 @@
 
 {% block content %}
 <div id="recept">
+    <button type="button" onclick="location.href = '/delete/{{ recept.0.0.id }}/'" class="btn btn-primary del_recept">
+        Удалить рецепт
+    </button>
     <div id="recept_block">
         <div class="recept_content">
             <!-- <p>{{ recept.0.0 }}</p> -->
             <p>Название: {{ recept.0.0.name }}</p>
             <p>Описание: {{ recept.0.0.description }}</p>
-            <p>Дата публикации: {{ recept.0.0.pub_date }}</p>
-            <p>Лайки: {{ recept.0.0.likes }}</p>
+            <p>Дата публикации: {{recept.0.0.pub_date|time:"H:i"}} {{ recept.0.0.pub_date|date:"d M Y" }}</p>
+            <p>Список ингредиентов:</p>
+            
+            <ul class="">
+                {% for item in recept.0.0.comp %}
+                <li>{{ item.name }} -- {{ item.size }} -- {{ item.measure }}</li>
+                {% endfor %}
+            </ul> 
+            <!-- <p>Лайки: {{ recept.0.0.likes }}</p> -->
             <svg><use xlink:href="{% static 'like-svgrepo-com.svg' %}"></use></svg>
 
+            
 
             <p><img src="" ></p>
         </div>
